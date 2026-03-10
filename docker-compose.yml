@@ -1,0 +1,39 @@
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - redis
+      - n8n
+    networks:
+      - internal
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - internal
+
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - WEBHOOK_URL=http://n8n:5678
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - internal
+
+volumes:
+  redis_data:
+  n8n_data:
+
+networks:
+  internal:
+    driver: bridge
