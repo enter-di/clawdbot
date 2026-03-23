@@ -5,7 +5,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters
 
 from openclaw.agent.claude_agent import ClaudeAgent
 from openclaw.agent.conversation import ConversationManager
-from openclaw.bot.handlers import clear_command, handle_message, help_command, start
+from openclaw.bot.handlers import clear_command, handle_message, help_command, start, status_command
 from openclaw.config import settings
 from openclaw.security.rate_limiter import RateLimiter
 
@@ -25,6 +25,7 @@ def build_application() -> Application:
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(CommandHandler("status", status_command))
     app.add_handler(CommandHandler("clear", clear_command))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
