@@ -129,4 +129,71 @@ TOOLS: list[dict[str, Any]] = [
             "required": ["url"],
         },
     },
+    {
+        "name": "create_github_issue",
+        "description": (
+            "Create a new issue in a GitHub repository. "
+            "Use this when the user wants to report a bug, request a feature, or track a task on GitHub."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "owner": {
+                    "type": "string",
+                    "description": "GitHub repository owner (user or organisation name)",
+                },
+                "repo": {
+                    "type": "string",
+                    "description": "Repository name",
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Short, descriptive title for the issue",
+                },
+                "body": {
+                    "type": "string",
+                    "description": "Full issue description in Markdown",
+                },
+                "labels": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Optional list of label names to apply",
+                },
+                "assignees": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Optional list of GitHub usernames to assign",
+                },
+            },
+            "required": ["owner", "repo", "title"],
+        },
+    },
+    {
+        "name": "search_github",
+        "description": (
+            "Search GitHub for repositories, issues, pull requests, or users. "
+            "Use this to find open-source projects, look up existing issues, or discover relevant code."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Search query string (supports GitHub search qualifiers like 'language:python', 'is:open', etc.)",
+                },
+                "type": {
+                    "type": "string",
+                    "enum": ["repositories", "issues", "users", "code"],
+                    "description": "What to search for",
+                    "default": "repositories",
+                },
+                "max_results": {
+                    "type": "integer",
+                    "description": "Maximum number of results to return (1–30)",
+                    "default": 5,
+                },
+            },
+            "required": ["query"],
+        },
+    },
 ]

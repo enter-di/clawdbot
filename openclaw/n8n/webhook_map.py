@@ -8,4 +8,6 @@ WEBHOOK_MAP: dict[str, str] = {
     "create_jira_ticket": f"{settings.n8n_base_url}/webhook/jira-create",
     "set_reminder": f"{settings.n8n_base_url}/webhook/reminder-set",
     "http_request": f"{settings.n8n_base_url}/webhook/generic-http",
+    "create_github_issue": f"{settings.n8n_base_url}/webhook/github-issue-create",
+    "search_github": f"{settings.n8n_base_url}/webhook/github-search",
 }
